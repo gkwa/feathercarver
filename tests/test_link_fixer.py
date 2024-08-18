@@ -62,7 +62,6 @@ def test_link_with_title_and_newlines():
    https://example.com
    "Example
    
-   
    Title"
    )
    """
@@ -168,5 +167,16 @@ Keywords: program to an interface
 - [a](https://a.com)
 Keywords: program to an interface
    """
+
+    assert link_fixer.fix_markdown_links(input_content) == expected_output
+
+
+def test_slow2():
+    link_fixer = LinkFixer()
+    input_content = """
+[a](http://a.aaa) aaa aaaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa
+   """
+
+    expected_output = input_content
 
     assert link_fixer.fix_markdown_links(input_content) == expected_output

@@ -56,7 +56,7 @@ class LinkFixer:
 
         for i in range(len(blocks)):
             if not self.block_pattern.match(blocks[i]):
-                self.logger.debug(blocks[i])
+                self.logger.debug(f"processing block: {blocks[i]}")
                 blocks[i] = self.pattern.sub(self._replace_link, blocks[i])
 
         return "".join(blocks)
