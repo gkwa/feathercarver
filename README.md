@@ -34,13 +34,14 @@ To set up the development environment:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/feathercarver.git
+   git clone https://github.com/gkwa/feathercarver.git
    cd feathercarver
    ```
 
 2. Install dependencies:
    ```bash
-   pip install -r requirements.txt
+   rye sync
+   . .venv/bin/activate
    ```
 
 3. Run tests:
