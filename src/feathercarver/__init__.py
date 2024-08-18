@@ -14,7 +14,7 @@ def main() -> int:
     if args.subcommand == "processfiles":
         for file_path in args.files:
             fp.process_file(file_path)
-    elif args.subcommand == "processdir":
+    elif args.subcommand == "processdirs":
         dp.process_directories(args.directories, args.ext)
 
     return 0
