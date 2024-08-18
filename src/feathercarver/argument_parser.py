@@ -6,6 +6,13 @@ class ArgumentParser:
         parser = argparse.ArgumentParser(
             description="Fix broken Markdown links in files."
         )
+        parser.add_argument(
+            "-v",
+            "--verbose",
+            action="count",
+            default=0,
+            help="Increase output verbosity (can be used multiple times)",
+        )
         subparsers = parser.add_subparsers(dest="subcommand", required=True)
 
         process_files = subparsers.add_parser(

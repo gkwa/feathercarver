@@ -1,11 +1,13 @@
 __project_name__ = "feathercarver"
 
-from . import argument_parser, directory_processor, file_processor, link_fixer
+from . import argument_parser, directory_processor, file_processor, link_fixer, logger
 
 
 def main() -> int:
     parser = argument_parser.ArgumentParser()
     args = parser.parse_arguments()
+
+    logger.setup_logger(args.verbose)
 
     lf = link_fixer.LinkFixer()
     fp = file_processor.FileProcessor(lf)
