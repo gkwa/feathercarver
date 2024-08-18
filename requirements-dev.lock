@@ -16,10 +16,6 @@ exceptiongroup==1.2.2
     # via pytest
 iniconfig==2.0.0
     # via pytest
-jinja2==3.1.4
-    # via feathercarver
-markupsafe==2.1.5
-    # via jinja2
 mypy-extensions==1.0.0
     # via black
 packaging==24.1
