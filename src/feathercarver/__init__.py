@@ -1,18 +1,17 @@
 __project_name__ = "feathercarver"
-from .argument_parser import ArgumentParser
-from .file_processor import FileProcessor
-from .link_fixer import LinkFixer
+
+from . import argument_parser, file_processor, link_fixer
 
 
 def main() -> int:
-    parser = ArgumentParser()
+    parser = argument_parser.ArgumentParser()
     file_paths = parser.parse_arguments()
 
-    link_fixer = LinkFixer()
-    file_processor = FileProcessor(link_fixer)
+    lf = link_fixer.LinkFixer()
+    fp = file_processor.FileProcessor(lf)
 
     for file_path in file_paths:
-        file_processor.process_file(file_path)
+        fp.process_file(file_path)
 
     return 0
 
