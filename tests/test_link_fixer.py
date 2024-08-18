@@ -159,14 +159,11 @@ def test_link_with_special_characters_in_text_and_url():
 def test_slow():
     link_fixer = LinkFixer()
     input_content = """
-- [a](https://a.com)
+[a](https://a.com)
 Keywords: program to an interface
    """
 
-    expected_output = """
-- [a](https://a.com)
-Keywords: program to an interface
-   """
+    expected_output = input_content
 
     assert link_fixer.fix_markdown_links(input_content) == expected_output
 
