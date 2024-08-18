@@ -1,17 +1,21 @@
 __project_name__ = "feathercarver"
 
-from . import argument_parser, file_processor, link_fixer
+from . import argument_parser, directory_processor, file_processor, link_fixer
 
 
 def main() -> int:
     parser = argument_parser.ArgumentParser()
-    file_paths = parser.parse_arguments()
+    args = parser.parse_arguments()
 
     lf = link_fixer.LinkFixer()
     fp = file_processor.FileProcessor(lf)
+    dp = directory_processor.DirectoryProcessor(fp)
 
-    for file_path in file_paths:
-        fp.process_file(file_path)
+    if args.subcommand == "processfiles":
+        for file_path in args.files:
+            fp.process_file(file_path)
+    elif args.subcommand == "processdir":
+        dp.process_directories(args.directories, args.ext)
 
     return 0
 

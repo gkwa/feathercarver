@@ -1,3 +1,4 @@
+import pathlib
 import sys
 
 
@@ -6,14 +7,11 @@ class FileProcessor:
         self.link_fixer = link_fixer
 
     def process_file(self, file_path):
+        path = pathlib.Path(file_path)
         try:
-            with open(file_path, "r") as file:
-                content = file.read()
-
+            content = path.read_text()
             fixed_content = self.link_fixer.fix_markdown_links(content)
-
-            with open(file_path, "w") as file:
-                file.write(fixed_content)
-            print(f"Processed {file_path}")
+            path.write_text(fixed_content)
+            print(f"Processed {path}")
         except IOError as e:
-            print(f"Error processing {file_path}: {e}", file=sys.stderr)
+            print(f"Error processing {path}: {e}", file=sys.stderr)
