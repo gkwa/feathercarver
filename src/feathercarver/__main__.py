@@ -1,5 +1,6 @@
 import sys
 
-import feathercarver
+from feathercarver import main
 
-sys.exit(feathercarver.main())
+if __name__ == "__main__":
+    sys.exit(main())

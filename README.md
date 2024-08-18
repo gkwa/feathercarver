@@ -1,5 +1,5 @@
-# feathercarver
+# Feathercarver
 
-## Learning jinja2 template inheritance
+## Running Tests
 
-https://jinja.palletsprojects.com/en/latest/templates/#template-inheritance
+To run the tests, use the following command:
