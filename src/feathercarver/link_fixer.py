@@ -7,49 +7,49 @@ class LinkFixer:
         self.logger = logging.getLogger(__name__)
         self.pattern = re.compile(
             r"""
-    (?<!!)(?<!\[)       # Negative lookbehind for ! and [
-    \[                  # Opening square bracket
-    (?P<text>           # Named capturing group for link text
-        (?:             # Non-capturing group
-            [^\[\]]     # Any character except [ or ]
-            |           # OR
-            \[[^\]]*\]  # Nested single level of brackets
-        )+              # One or more times
-    )                   # End named capturing group for link text
-    \]                  # Closing square bracket
-    (?=\s*\()           # Positive lookahead for optional whitespace and (
-    \s*\(               # Optional whitespace and opening parenthesis
-    \s*                 # Optional whitespace
-    (?P<url>            # Named capturing group for URL
-        [^\s()]+        # One or more non-space, non-parenthesis characters
-        (?:\([^()]*\)[^\s()]*)*  # Allow balanced parentheses in URL
-    )                   # End named capturing group for URL
-    (?:                 # Non-capturing group for optional title
-        \s+             # Required whitespace before title
-        (?P<title>      # Named capturing group for title
-            ["']        # Opening quote (single or double)
-            (?:         # Non-capturing group
-                [^"'\\]|\\.|["'](?!\))  # Any char except quotes or backslash, or escaped char, or quote not followed by )
-            )*          # Zero or more times
-            ["']        # Closing quote (single or double)
-        )               # End named capturing group for title
-    )?                  # Title is optional
-    \s*                 # Optional whitespace
-    \)                  # Closing parenthesis
-    (?!\()              # Negative lookahead for (
+(?<!!)(?<!\[)       # Negative lookbehind for ! and [
+\[                  # Opening square bracket
+(?P<text>           # Named capturing group for link text
+    (?:             # Non-capturing group
+        [^\[\]]     # Any character except [ or ]
+        |           # OR
+        \[[^\]]*\]  # Nested single level of brackets
+    )+              # One or more times
+)                   # End named capturing group for link text
+\]                  # Closing square bracket
+(?=\s*\()           # Positive lookahead for optional whitespace and (
+\s*\(               # Optional whitespace and opening parenthesis
+\s*                 # Optional whitespace
+(?P<url>            # Named capturing group for URL
+    [^\s()]+        # One or more non-space, non-parenthesis characters
+    (?:\([^()]*\)[^\s()]*)*  # Allow balanced parentheses in URL
+)                   # End named capturing group for URL
+(?:                 # Non-capturing group for optional title
+    \s+             # Required whitespace before title
+    (?P<title>      # Named capturing group for title
+        ["']        # Opening quote (single or double)
+        (?:         # Non-capturing group
+            [^"'\\]|\\.|["'](?!\))  # Any char except quotes or backslash, or escaped char, or quote not followed by )
+        )*          # Zero or more times
+        ["']        # Closing quote (single or double)
+    )               # End named capturing group for title
+)?                  # Title is optional
+\s*                 # Optional whitespace
+\)                  # Closing parenthesis
+(?!\()              # Negative lookahead for (
             """,
             re.VERBOSE,
         )
 
         self.block_pattern = re.compile(
             r"""
-            (?P<code>           # Named capturing group for code blocks
-                (?:             # Non-capturing group for block or inline code
-                    ```[\s\S]*?```  # Block code
-                    |               # OR
-                    `[^`\n]+?`      # Inline code
-                )
-            )
+(?P<code>           # Named capturing group for code blocks
+    (?:             # Non-capturing group for block or inline code
+        ```[\s\S]*?```  # Block code
+        |               # OR
+        `[^`\n]+?`      # Inline code
+    )
+)
             """,
             re.VERBOSE,
         )
