@@ -156,29 +156,6 @@ def test_link_with_special_characters_in_text_and_url():
     assert link_fixer.fix_markdown_links(input_content) == expected_output
 
 
-def test_slow():
-    link_fixer = LinkFixer()
-    input_content = """
-[a](https://a.com)
-Keywords: program to an interface
-   """
-
-    expected_output = input_content
-
-    assert link_fixer.fix_markdown_links(input_content) == expected_output
-
-
-def test_slow2():
-    link_fixer = LinkFixer()
-    input_content = """
-[a](http://a.aaa) aaa aaaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa
-   """
-
-    expected_output = input_content
-
-    assert link_fixer.fix_markdown_links(input_content) == expected_output
-
-
 def test_nested1():
     link_fixer = LinkFixer()
     input_content = """
@@ -230,7 +207,30 @@ def test_image_links():
     assert link_fixer.fix_markdown_links(input_content) == expected_output
 
 
-def test2():
+def test_slow():
+    link_fixer = LinkFixer()
+    input_content = """
+[a](https://a.com)
+Keywords: program to an interface
+   """
+
+    expected_output = input_content
+
+    assert link_fixer.fix_markdown_links(input_content) == expected_output
+
+
+def test_slow2():
+    link_fixer = LinkFixer()
+    input_content = """
+[a](http://a.aaa) aaa aaaa aaa aaa aaa aaa aaa aaa aaa aaa aaa aaa
+   """
+
+    expected_output = input_content
+
+    assert link_fixer.fix_markdown_links(input_content) == expected_output
+
+
+def test_slow3():
     link_fixer = LinkFixer()
     input_content = """
 - [[test - test test test test test test test test test test test test test test test test test test test test test test test test test test test test]]
