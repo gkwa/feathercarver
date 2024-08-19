@@ -7,41 +7,42 @@ class LinkFixer:
         self.logger = logging.getLogger(__name__)
         self.pattern = re.compile(
             r"""
-            (?<!\[)             # Negative lookbehind for [
-            \[                  # Opening square bracket
-            (?P<text>           # Named capturing group for link text
-                (?:             # Non-capturing group
-                    [^\[\]]     # Any character except [ or ]
-                    |           # OR
+            (?<!!)               # Negative lookbehind for !
+            (?<!\[)              # Negative lookbehind for [
+            \[                   # Opening square bracket
+            (?P<text>            # Named capturing group for link text
+                (?:              # Non-capturing group
+                    [^\[\]]      # Any character except [ or ]
+                    |            # OR
                     \[(?:[^\[\]]+|\[[^\]]*\])*\]  # Nested brackets
-                )*              # Zero or more times
-            )                   # End named capturing group for link text
-            \]                  # Closing square bracket
-            (?=\s*\()           # Positive lookahead for optional whitespace and (
-            \s*\(               # Optional whitespace and opening parenthesis
-            \s*                 # Optional whitespace
-            (?P<url>            # Named capturing group for URL
-                (?:             # Non-capturing group
-                    [^()\s]+    # One or more non-space, non-parenthesis characters
-                    (?:         # Non-capturing group
+                )*               # Zero or more times
+            )                    # End named capturing group for link text
+            \]                   # Closing square bracket
+            (?=\s*\()            # Positive lookahead for optional whitespace and (
+            \s*\(                # Optional whitespace and opening parenthesis
+            \s*                  # Optional whitespace
+            (?P<url>             # Named capturing group for URL
+                (?:              # Non-capturing group
+                    [^()\s]+     # One or more non-space, non-parenthesis characters
+                    (?:          # Non-capturing group
                         \([^()]*\)  # Parentheses and their contents
-                        [^()\s]*   # Followed by zero or more non-space, non-parenthesis characters
-                    )*          # Zero or more times
-                )               # End non-capturing group
-            )                   # End named capturing group for URL
-            (?:                 # Non-capturing group for optional title
-                \s+             # Required whitespace before title
-                (?P<title>      # Named capturing group for title
-                    ["']        # Opening quote (single or double)
-                    (?:         # Non-capturing group
+                        [^()\s]*    # Followed by zero or more non-space, non-parenthesis characters
+                    )*           # Zero or more times
+                )                # End non-capturing group
+            )                    # End named capturing group for URL
+            (?:                  # Non-capturing group for optional title
+                \s+              # Required whitespace before title
+                (?P<title>       # Named capturing group for title
+                    ["']         # Opening quote (single or double)
+                    (?:          # Non-capturing group
                         [^"'\\]|\\.|["'](?!\))  # Any char except quotes or backslash, or escaped char, or quote not followed by )
-                    )*          # Zero or more times
-                    ["']        # Closing quote (single or double)
-                )               # End named capturing group for title
-            )?                  # Title is optional
-            \s*                 # Optional whitespace
-            \)                  # Closing parenthesis
-            (?!\()              # Negative lookahead for (
+                    )*           # Zero or more times
+                    ["']         # Closing quote (single or double)
+                )                # End named capturing group for title
+            )?                   # Title is optional
+            \s*                  # Optional whitespace
+            \)                   # Closing parenthesis
+            (?!\()               # Negative lookahead for (
             """,
             re.VERBOSE,
         )

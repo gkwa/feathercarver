@@ -215,3 +215,16 @@ def test_nested2():
    """
 
     assert link_fixer.fix_markdown_links(input_content) == expected_output
+
+
+def test_image_links():
+    link_fixer = LinkFixer()
+    input_content = """
+![[Pasted image 20240228064725.png]]
+
+![[Pasted image 20240228064723.png]]
+"""
+
+    expected_output = input_content
+
+    assert link_fixer.fix_markdown_links(input_content) == expected_output
