@@ -9,12 +9,14 @@ class FileProcessor:
 
     def process_file(self, file_path):
         path = pathlib.Path(file_path)
-        self.logger.info(f"Processing file: {path}")
+        if self.logger.isEnabledFor(logging.INFO):
+            self.logger.info(f"Processing file: {path}")
 
         if not self._read_and_process_file(path):
             return
 
-        self.logger.info(f"Processed {path}")
+        if self.logger.isEnabledFor(logging.INFO):
+            self.logger.info(f"Processed {path}")
 
     def _read_and_process_file(self, path):
         try:
