@@ -10,11 +10,27 @@ class FileProcessor:
     def process_file(self, file_path):
         path = pathlib.Path(file_path)
         self.logger.info(f"Processing file: {path}")
+
+        if not self._read_and_process_file(path):
+            return
+
+        self.logger.info(f"Processed {path}")
+
+    def _read_and_process_file(self, path):
         try:
             content = path.read_text()
-            fixed_content = self.link_fixer.fix_markdown_links(content)
-            if fixed_content != content:
-                path.write_text(fixed_content)
-            self.logger.info(f"Processed {path}")
         except IOError as e:
-            self.logger.error(f"Error processing {path}: {e}")
+            self.logger.error(f"Error reading {path}: {e}")
+            return False
+
+        fixed_content = self.link_fixer.fix_markdown_links(content)
+        if fixed_content == content:
+            return True
+
+        try:
+            path.write_text(fixed_content)
+        except IOError as e:
+            self.logger.error(f"Error writing to {path}: {e}")
+            return False
+
+        return True
