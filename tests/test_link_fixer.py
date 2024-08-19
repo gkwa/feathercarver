@@ -228,3 +228,14 @@ def test_image_links():
     expected_output = input_content
 
     assert link_fixer.fix_markdown_links(input_content) == expected_output
+
+
+def test2():
+    link_fixer = LinkFixer()
+    input_content = """
+- [[test - test test test test test test test test test test test test test test test test test test test test test test test test test test test test]]
+"""
+
+    expected_output = input_content
+
+    assert link_fixer.fix_markdown_links(input_content) == expected_output
