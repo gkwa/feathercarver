@@ -177,3 +177,41 @@ def test_slow2():
     expected_output = input_content
 
     assert link_fixer.fix_markdown_links(input_content) == expected_output
+
+
+def test_nested1():
+    link_fixer = LinkFixer()
+    input_content = """
+[
+
+![name](https://name.com)
+
+](https://name2.com)
+   """
+
+    expected_output = """
+[![name](https://name.com)](https://name2.com)
+   """
+
+    assert link_fixer.fix_markdown_links(input_content) == expected_output
+
+
+def test_nested2():
+    link_fixer = LinkFixer()
+    input_content = """
+[
+
+![name](https://name.com)
+
+](https://name2.com)[
+
+![name3](https://name3.com)
+
+](https://name4.com)
+   """
+
+    expected_output = """
+[![name](https://name.com)](https://name2.com)[![name3](https://name3.com)](https://name4.com)
+   """
+
+    assert link_fixer.fix_markdown_links(input_content) == expected_output
