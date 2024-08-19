@@ -54,7 +54,7 @@ class LinkFixer:
             re.VERBOSE,
         )
 
-        self.wikilink_pattern = re.compile(r'\[\[([^\]]+)\]\]')
+        self.wikilink_pattern = re.compile(r"\[\[([^\]]+)\]\]")
 
     def fix_markdown_links(self, content):
         blocks = self.block_pattern.split(content)
