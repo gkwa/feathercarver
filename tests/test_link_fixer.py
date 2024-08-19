@@ -239,3 +239,30 @@ def test_slow3():
     expected_output = input_content
 
     assert link_fixer.fix_markdown_links(input_content) == expected_output
+
+
+def test_modified_link_alongside_code_block_link():
+    link_fixer = LinkFixer()
+    input_content = """
+[
+
+koffeinsource/go-imgur: Go library to use the imgur.com API](https://github.com/koffeinsource/go-imgur?tab=readme-ov-file "koffeinsource/go-imgur: Go library to use the imgur.com API")
+
+```
+[
+
+koffeinsource/go-imgur: Go library to use the imgur.com API](https://github.com/koffeinsource/go-imgur?tab=readme-ov-file "koffeinsource/go-imgur: Go library to use the imgur.com API")
+```
+"""
+
+    expected_output = """
+[koffeinsource/go-imgur: Go library to use the imgur.com API](https://github.com/koffeinsource/go-imgur?tab=readme-ov-file "koffeinsource/go-imgur: Go library to use the imgur.com API")
+
+```
+[
+
+koffeinsource/go-imgur: Go library to use the imgur.com API](https://github.com/koffeinsource/go-imgur?tab=readme-ov-file "koffeinsource/go-imgur: Go library to use the imgur.com API")
+```
+"""
+
+    assert link_fixer.fix_markdown_links(input_content) == expected_output
