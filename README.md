@@ -1,13 +1,13 @@
 # Feathercarver
 
-Feathercarver is a Python tool designed to fix broken Markdown links in files. It can handle various types of Markdown links, including those with titles, and can process multiple files at once.
+Feathercarver is a Python tool designed to fix broken Markdown links in files. It can handle various types of Markdown links, including those with titles, and can process multiple files or directories at once.
 
 ## Features
 
 - Fixes broken Markdown links split across multiple lines
 - Preserves code blocks and inline code
 - Handles links with titles (both single and double quotes)
-- Processes multiple files in a single run
+- Processes multiple files or directories in a single run
 - Maintains the original file structure and content outside of links
 
 ## Installation
@@ -20,13 +20,47 @@ pip install feathercarver
 
 ## Usage
 
-You can use Feathercarver from the command line:
+Feathercarver supports two main subcommands: `processfiles` and `processdirs`.
+
+### Processing Individual Files
+
+To process individual files, use the `processfiles` subcommand:
 
 ```bash
-feathercarver file1.md file2.md file3.md
+feathercarver processfiles file1.md file2.md file3.md
 ```
 
 This will process all the specified Markdown files, fixing any broken links it finds.
+
+### Processing Directories
+
+To process entire directories, use the `processdirs` subcommand:
+
+```bash
+feathercarver processdirs path/to/directory1 path/to/directory2
+```
+
+By default, this will process all `.md` files in the specified directories and their subdirectories.
+
+You can specify which file extensions to process using the `--ext` option:
+
+```bash
+feathercarver processdirs path/to/directory --ext md txt
+```
+
+This will process both `.md` and `.txt` files in the specified directory although this 
+link checker was meant to process only markdown files.
+
+### Verbosity
+
+You can increase the verbosity of the output using the `-v` or `--verbose` option:
+
+```bash
+feathercarver -v processfiles file1.md
+feathercarver -vv processdirs path/to/directory
+```
+
+Use `-v` for info-level logging, `-vv` for debug-level logging, and `-vvv` for the most detailed logging.
 
 ## Development
 
