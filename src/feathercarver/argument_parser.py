@@ -10,7 +10,7 @@ class ArgumentParser:
             "-v",
             "--verbose",
             action="count",
-            default=0,
+            default=1,
             help="Increase output verbosity (can be used multiple times)",
         )
         subparsers = parser.add_subparsers(dest="subcommand", required=True)

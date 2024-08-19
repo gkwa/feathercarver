@@ -16,7 +16,7 @@ class DirectoryProcessor:
 
     def process_directory(self, directory: str, extensions: typing.List[str]):
         dir_path = pathlib.Path(directory)
-        self.logger.info(f"Processing directory: {dir_path}")
+        self.logger.debug(f"Processing directory: {dir_path}")
         for file_path in dir_path.rglob("*"):
             if file_path.is_file() and file_path.suffix[1:] in extensions:
                 self.logger.debug(f"Found file: {file_path}")

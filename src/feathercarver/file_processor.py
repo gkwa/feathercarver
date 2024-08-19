@@ -9,7 +9,7 @@ class FileProcessor:
 
     def process_file(self, file_path):
         path = pathlib.Path(file_path)
-        self.logger.info(f"Processing file: {path}")
+        self.logger.debug(f"Processing file: {path}")
 
         try:
             content = path.read_text()
@@ -21,9 +21,9 @@ class FileProcessor:
 
         if fixed_content != content:
             try:
+                self.logger.info(f"Updating {path}")
                 path.write_text(fixed_content)
-                self.logger.info(f"Updated {path}")
             except IOError as e:
                 self.logger.error(f"Error writing to {path}: {e}")
         else:
-            self.logger.info(f"No changes needed for {path}")
+            self.logger.debug(f"No changes needed for {path}")
