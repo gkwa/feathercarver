@@ -9,30 +9,46 @@ class FileProcessor:
 
     def process_file(self, file_path):
         path = pathlib.Path(file_path)
+        self._log_processing(path)
+        if self._read_process_write(path):
+            self._log_processed(path)
+
+    def _log_processing(self, path):
         if self.logger.isEnabledFor(logging.INFO):
             self.logger.info(f"Processing file: {path}")
 
-        if not self._read_and_process_file(path):
-            return
-
+    def _log_processed(self, path):
         if self.logger.isEnabledFor(logging.INFO):
             self.logger.info(f"Processed {path}")
 
-    def _read_and_process_file(self, path):
-        try:
-            content = path.read_text()
-        except IOError as e:
-            self.logger.error(f"Error reading {path}: {e}")
+    def _read_process_write(self, path):
+        content = self._read_file(path)
+        if content is None:
             return False
 
-        fixed_content = self.link_fixer.fix_markdown_links(content)
+        fixed_content = self._fix_content(content)
         if fixed_content == content:
             return True
 
+        return self._write_file(path, fixed_content)
+
+    def _read_file(self, path):
         try:
-            path.write_text(fixed_content)
+            return path.read_text()
         except IOError as e:
-            self.logger.error(f"Error writing to {path}: {e}")
+            self._log_error("reading", path, e)
+            return None
+
+    def _fix_content(self, content):
+        return self.link_fixer.fix_markdown_links(content)
+
+    def _write_file(self, path, content):
+        try:
+            path.write_text(content)
+            return True
+        except IOError as e:
+            self._log_error("writing to", path, e)
             return False
 
-        return True
+    def _log_error(self, action, path, error):
+        self.logger.error(f"Error {action} {path}: {error}")
