@@ -13,7 +13,8 @@ class FileProcessor:
         try:
             content = path.read_text()
             fixed_content = self.link_fixer.fix_markdown_links(content)
-            path.write_text(fixed_content)
+            if fixed_content != content:
+                path.write_text(fixed_content)
             self.logger.info(f"Processed {path}")
         except IOError as e:
             self.logger.error(f"Error processing {path}: {e}")
