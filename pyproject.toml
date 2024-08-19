@@ -1,6 +1,6 @@
 [project]
 name = "feathercarver"
-version = "0.1.11"
+version = "0.1.12"
 description = "A Python tool to fix broken Markdown links in files"
 authors = [
  { name = "Taylor Monacelli", email = "taylormonacelli@gmail.com" }
